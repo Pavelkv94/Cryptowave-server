@@ -72,13 +72,12 @@ module.exports = {
             }
           });
           return `Название: ${currentCoin?.name}\n 💵Стоимость: ${parseFloat(currentCoin?.price).toFixed(2)}$\n 🔶Всего на балансе:  ${parseFloat(holdings).toFixed(2)} единиц\n 💰Баланс: ${parseFloat(totalBalance).toFixed(2)}$\n
-          ${totalProfit >= 0 ? `🚀Прибыль: ${parseFloat(totalProfit).toFixed(2)}$🚀` : `🔻Убыток: ${parseFloat(totalProfit).toFixed(2)}$🔻`}\n============================= \n `;
+          ${totalProfit >= 0 ? `🚀Прибыль: ${parseFloat(totalProfit).toFixed(2)}$🚀` : `🔻Убыток: ${parseFloat(totalProfit).toFixed(2)}$🔻`}\n========================== \n `;
         });
         const emptyHistory = "📊 Вы еще не имеете доступных криптовалют/токенов в вашем портфеле.";
 
-        // bot.sendMessage(chatId, result.length === 0 ? emptyHistory : [`🟢Всего: ${parseFloat(commonBalance).toFixed(2)}$ (${commonProfit > 0 ? "+" : "  "}${parseFloat(commonProfit).toFixed(2)}$)🟢  \n================================= \n `, ...arrayString].join(" "));
           bot.sendPhoto(chatId, './assets/portfel.png', {
-            caption: result.length === 0 ? emptyHistory : [`🟢Всего: ${parseFloat(commonBalance).toFixed(2)}$ (${commonProfit > 0 ? "+" : "  "}${parseFloat(commonProfit).toFixed(2)}$)🟢  \n================================= \n `, ...arrayString].join(" ")
+            caption: result.length === 0 ? emptyHistory : [`🟢Всего: ${parseFloat(commonBalance).toFixed(2)}$ (${commonProfit > 0 ? "+" : "  "}${parseFloat(commonProfit).toFixed(2)}$)🟢  \n========================== \n `, ...arrayString].join(" ")
           })
       });
   },
@@ -103,5 +102,5 @@ module.exports = {
 
 
 
-  
+
 };
