@@ -1,13 +1,13 @@
 const cors = require("cors");
 const express = require("express");
 const mongoose = require("mongoose");
-const Router = require("./routes");
 const authRouter = require("./auth/authRouter");
 const transactionsRouter = require("./transactions/transactionsRouter");
 const watcherRouter = require("./watcher/watcherRouter");
 
 const bot = require("./bot");
 const { startBot, myCrypto, showBTC } = require("./botOptions");
+const { monitorPrice } = require("./monitorPrice");
 
 require("dotenv").config();
 
@@ -38,7 +38,6 @@ const server = express();
 server.use(cors({ origin: "*" })); //!------CORS DANGER
 
 server.use(express.json());
-server.use(Router);
 server.use(authRouter);
 server.use(transactionsRouter);
 server.use(watcherRouter);
@@ -86,5 +85,6 @@ const botActions = () => {
 };
 
 botActions();
-
 start();
+
+setInterval(() => monitorPrice(), 20 * 1000); //86400 - 24часа

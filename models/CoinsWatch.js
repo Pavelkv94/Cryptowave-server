@@ -6,6 +6,8 @@ const CoinsWatch = new Schema({
   iconUrl: { type: String, required: true },
   tg_nickname: { type: String, required: true },
   user: { type: String, required: true },
+  changing: { type: String, required: true },
+
 });
 
 module.exports = model("CoinsWatch", CoinsWatch);

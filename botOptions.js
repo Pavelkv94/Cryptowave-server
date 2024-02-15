@@ -5,7 +5,7 @@ const { getCoins, getLatestPrices } = require("./getCoinsRequest");
 
 module.exports = {
   async startBot(chatId, first_name, username) {
-    await User.findOneAndUpdate({ username: username }, { chat_id: chatId }, { new: true });
+    await User.findOneAndUpdate({ tg_nickname: username }, { chat_id: chatId }, { new: true });
 
     await bot.sendMessage(chatId, `Приветствую тебя ${first_name}! Я твой личный крипто ассистент.`, {
       reply_markup: {

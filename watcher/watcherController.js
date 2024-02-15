@@ -9,7 +9,7 @@ class watcherController {
         return res.status(400).json({ message: "Ошибка при регистрации", errors });
       }
 
-      const { symbol, name, iconUrl, tg_nickname, user } = req.body;
+      const { symbol, name, iconUrl, tg_nickname, user, changing } = req.body;
 
       const newWatchItem = new CoinsWatch({
         symbol,
@@ -17,6 +17,7 @@ class watcherController {
         iconUrl,
         tg_nickname,
         user,
+        changing
       });
 
       const savedWatchItem = await newWatchItem.save();
