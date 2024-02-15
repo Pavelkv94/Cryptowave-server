@@ -24,7 +24,7 @@ class authController {
           .status(400)
           .json({ message: "Ошибка при регистрации", errors });
       }
-      const { username, password } = req.body;
+      const { username, password, tg_nickname } = req.body;
       const candidate = await User.findOne({ username }); //ищем пользователя с этим юзернеймом
       if (candidate) {
         return res.status(400).json({ message: "Пользователь уже существует" });
@@ -36,7 +36,9 @@ class authController {
         username,
         password: hashPassword,
         balance: 0,
-        avatar_url: "https://s3.coinmarketcap.com/static/img/portraits/633520129b613d3454890380.png"
+        avatar_url: "https://s3.coinmarketcap.com/static/img/portraits/633520129b613d3454890380.png",
+        tg_nickname,
+        chat_id: ""
       }); //создаем пользователя
 
       await user.save(); //сохраняем в БД
@@ -66,7 +68,7 @@ class authController {
       
 
       const token = generateAccessToken(user._id); // _id монго генерирует сам
-      return res.json( {username: user.username,  id: user._id, token, balance: user.balance, avatar_url: user.avatar_url })
+      return res.json( {username: user.username,  id: user._id, token, balance: user.balance, avatar_url: user.avatar_url, tg_nickname: user.tg_nickname, chat_id: user.chat_id })
 
     } catch (e) {
       console.log(e);

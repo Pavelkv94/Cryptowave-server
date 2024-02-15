@@ -5,6 +5,8 @@ const User = new Schema({
     password: { type: String, required: true },
     balance: { type: Number, required: true },
     avatar_url: { type: String, required: false },
+    tg_nickname: { type: String, unique: true, required: true },
+    chat_id: { type: String, required: false },
 });
 
 module.exports = model("User", User);

@@ -9,6 +9,7 @@ const Transactions = new Schema({
     operation: { type: String, required: true },
     user: { type: String, required: true },
     date: { type: String, required: true },
+    tg_nickname: { type: String, required: true },
 });
 
 module.exports = model("Transactions", Transactions);

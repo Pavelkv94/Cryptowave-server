@@ -1,5 +1,4 @@
 const User = require("../models/User");
-const bcrypt = require("bcryptjs"); //хэширование пароля
 const { validationResult } = require("express-validator"); //для получения сообщений об ошибках
 const Transactions = require("../models/Transactions");
 
@@ -11,7 +10,7 @@ class transactionsController {
         return res.status(400).json({ message: "Ошибка при регистрации", errors });
       }
 
-      const { user, total, coin, note, operation, price_per_coin, quantity, date } = req.body;
+      const { user, total, coin, note, operation, price_per_coin, quantity, date, tg_nickname } = req.body;
       const operationType = req.body.operation;
       const adjustedTotal = operationType === "sell" ? -total : total;
 
@@ -32,7 +31,8 @@ class transactionsController {
         total: total,
         operation: operation,
         user: user,
-        date: date
+        date: date,
+        tg_nickname: tg_nickname
       });
 
       const savedTransaction = await newTransaction.save();
