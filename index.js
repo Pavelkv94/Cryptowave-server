@@ -11,7 +11,7 @@ const { monitorPrice } = require("./monitorPrice");
 
 require("dotenv").config();
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3007;
 // const url = "mongodb://127.0.0.1/orcusDataBase"; //For local
 const url = `mongodb+srv://${process.env.DB_OWNER}:${process.env.DB_PASS}@clusterfortgbot.hi5sp.mongodb.net/Cryptowave?retryWrites=true&w=majority`;
 // Установим подключение по умолчанию
@@ -87,4 +87,4 @@ const botActions = () => {
 botActions();
 start();
 
-setInterval(() => monitorPrice(), 20 * 1000); //86400 - 24часа
+setInterval(() => monitorPrice(), 1800 * 1000); //86400 - 24часа
