@@ -1,4 +1,3 @@
-//todo Мидлваря для того чтобы только зареганый юзер мог видеть пользователей
 const jwt = require("jsonwebtoken");
 const { secret } = require("../../config");
 
