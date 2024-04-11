@@ -1,6 +1,13 @@
 # Cryptowave server with refresh/access token authorization
 
-##Used technologies
+``
+npm i
+``
+``
+npm run start
+``
+
+## Used technologies
 
 axios
 bcrypt
