@@ -7,7 +7,7 @@ const Transactions = new Schema({
     note: { type: String, required: false },
     total: { type: String, required: true },
     operation: { type: String, required: true },
-    user: { type: String, required: true },
+    user_id: { type: String, required: true },
     date: { type: String, required: true },
     tg_nickname: { type: String, required: true },
 });

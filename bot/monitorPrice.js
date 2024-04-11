@@ -1,7 +1,7 @@
 const bot = require("./bot");
-const { getCoins } = require("./getCoinsRequest");
-const CoinsWatch = require("./models/CoinsWatch");
-const User = require("./models/User");
+const { getCoins } = require("../getCoinsRequest");
+const CoinsWatch = require("../models/CoinsWatch");
+const User = require("../models/UserModel");
 
 module.exports = {
   async monitorPrice() {

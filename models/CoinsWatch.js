@@ -5,7 +5,7 @@ const CoinsWatch = new Schema({
   name: { type: String, required: true },
   iconUrl: { type: String, required: true },
   tg_nickname: { type: String, required: true },
-  user: { type: String, required: true },
+  user_id: { type: String, required: true },
   changing: { type: String, required: true },
 
 });

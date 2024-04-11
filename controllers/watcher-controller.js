@@ -1,4 +1,4 @@
-const { validationResult } = require("express-validator"); //для получения сообщений об ошибках
+const { validationResult } = require("express-validator"); 
 const CoinsWatch = require("../models/CoinsWatch");
 
 class watcherController {
@@ -9,14 +9,14 @@ class watcherController {
         return res.status(400).json({ message: "Ошибка при регистрации", errors });
       }
 
-      const { symbol, name, iconUrl, tg_nickname, user, changing } = req.body;
+      const { symbol, name, iconUrl, tg_nickname, user_id, changing } = req.body;
 
       const newWatchItem = new CoinsWatch({
         symbol,
         name,
         iconUrl,
         tg_nickname,
-        user,
+        user_id,
         changing
       });
 
@@ -30,7 +30,7 @@ class watcherController {
   }
 
   async getWatchList(req, res) {
-    const result = await CoinsWatch.find({ user: req.params.user_id });
+    const result = await CoinsWatch.find({ user_id: req.params.user_id });
 
     if (!result) {
       return res.status(404).json({ error: "History not found" });

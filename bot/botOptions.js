@@ -1,7 +1,7 @@
 const bot = require("./bot");
-const Transactions = require("./models/Transactions");
-const User = require("./models/User");
-const { getCoins, getLatestPrices } = require("./getCoinsRequest");
+const Transactions = require("../models/Transactions");
+const User = require("../models/UserModel");
+const { getCoins, getLatestPrices } = require("../getCoinsRequest");
 
 module.exports = {
   async startBot(chatId, first_name, username) {
