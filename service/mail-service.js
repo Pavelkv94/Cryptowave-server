@@ -20,7 +20,7 @@ class MailService {
         await this.transporter.sendMail({
             from: process.env.SMTP_USER,
             to,
-            subject: 'Account activation at ' + process.env.API_URL,
+            subject: 'Account activation at ' + process.env.CLIENT_URL,
             text: "",
             html: `
             <div style="background-color: #fff; border-radius: 8px; padding: 20px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
