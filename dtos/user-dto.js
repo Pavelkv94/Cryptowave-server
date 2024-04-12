@@ -9,7 +9,8 @@ module.exports = class UserDto {
         this.email = model.email;
         this.id = model._id;
         this.isActivated = model.isActivated;
-        this.tg_nickname = model.tg_nickname
+        this.tg_nickname = model.tg_nickname;
+        this.avatar_url = model.avatar_url;
     }
 
 }

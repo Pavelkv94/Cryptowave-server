@@ -10,7 +10,8 @@ router.post("/logout", userController.logout);
 router.get("/activate/:link", userController.activate);
 router.get("/refresh", userController.refresh);
 router.get("/users", authMiddleware, userController.getUsers);
-router.post("/user/:user_id/updateAvatar",authMiddleware, userController.updateAvatar);
+router.post("/user/:user_id/updateAvatar", authMiddleware, userController.updateAvatar);
+router.get("/avatar/:user_id", authMiddleware, userController.getAvarar);
 
 
 module.exports = router;

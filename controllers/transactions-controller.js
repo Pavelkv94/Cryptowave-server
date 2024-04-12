@@ -1,10 +1,9 @@
-const User = require("../models/UserModel");
 const { validationResult } = require("express-validator");
 const Transactions = require("../models/Transactions");
 const transactionService = require("../service/transaction-service");
 
 class transactionsController {
-  async createTransaction(req, res) {
+  async createTransaction(req, res, next) {
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
