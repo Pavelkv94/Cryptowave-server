@@ -1,0 +1,27 @@
+services:
+  cryptowave-server:
+    container_name: cryptowave-server
+    networks:
+      - x_network
+    build:
+      context: .
+    environment:
+      DB_NAME: $DB_NAME
+      DB_URL: $DB_URL
+      PORT: $PORT
+      ADMIN: $ADMIN
+      JWT_ACCESS_SECRET: $JWT_ACCESS_SECRET
+      JWT_REFRESH_SECRET: $JWT_REFRESH_SECRET
+      SMTP_HOST: $SMTP_HOST
+      SMTP_PORT: $SMTP_PORT
+      SMTP_USER: $SMTP_USER
+      SMTP_PASSWORD: $SMTP_PASSWORD
+      CLIENT_URL: $CLIENT_URL
+      EXTERNAL_NEWSAPI_KEY: $EXTERNAL_NEWSAPI_KEY
+      EXTERNAL_EXCHANGES_APIKEY: $EXTERNAL_EXCHANGES_APIKEY
+      EXTERNAL_COINDESK_APIKEY: $EXTERNAL_COINDESK_APIKEY
+      BOT_TOKEN: $BOT_TOKEN
+
+networks:
+  x_network:
+    external: true

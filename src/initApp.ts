@@ -25,6 +25,10 @@ export const initApp = () => {
     })
   );
 
+  app.get("/", (req, res) => {
+    res.status(200).json({ version: "1.1" });
+  });
+
   app.use("/auth", authRouter);
   app.use("/users", usersRouter);
   app.use("/delete", testingRouter);
