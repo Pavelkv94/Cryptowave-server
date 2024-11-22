@@ -1,0 +1,68 @@
+# .gitea/gitea-ci.yml
+name: "CRYPTOWAVE SERVER DEPLOY"
+on:
+  push:
+    branches:
+      - "main"  
+jobs:
+  explore_gitea_actions:
+    image: docker/compose:latest
+    steps:
+      - name: Display event info
+        run: |
+          echo "🎉 The job was automatically triggered by a push event."
+          echo "🐧 This job is running on an Ubuntu server hosted by Gitea!"          
+      
+      - name: Check out repository code
+        run: |
+          git clone "http://10.0.0.2:3010/akiro/Cryptowave-server.git" cryptowave-server-repo
+          cd cryptowave-server-repo
+          echo "💡 The repository has been cloned to the runner."          
+
+      - name: List files in the repository
+        run: |
+          cd cryptowave-server-repo
+          ls
+          echo "docker-compose.yaml should be listed above."          
+
+      - name: Install dependencies
+        run: |
+          cd cryptowave-server-repo
+          npm install
+          echo "📦 Dependencies installed."
+          
+      - name: Run tests
+        run: |
+          cd cryptowave-server-repo
+          npm run jest
+          echo "✅ Tests completed."
+
+      - name: Start services with Docker Compose
+        run: |
+          cd cryptowave-server-repo
+          docker compose down  # Stop any existing services
+
+          export DB_NAME=${{ secrets.DB_NAME }}
+          export DB_URL=${{ secrets.DB_URL }}
+          export PORT=${{ secrets.PORT }}
+          export ADMIN=${{ secrets.ADMIN }}
+          export JWT_ACCESS_SECRET=${{ secrets.JWT_ACCESS_SECRET }}
+          export JWT_REFRESH_SECRET=${{ secrets.JWT_REFRESH_SECRET }}
+          export SMTP_HOST=${{ secrets.SMTP_HOST }}
+          export SMTP_PORT=${{ secrets.SMTP_PORT }}
+          export SMTP_USER=${{ secrets.SMTP_USER }}
+          export SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}
+          export CLIENT_URL=${{ secrets.CLIENT_URL }}
+          export EXTERNAL_NEWSAPI_KEY=${{ secrets.EXTERNAL_NEWSAPI_KEY }}
+          export EXTERNAL_EXCHANGES_APIKEY=${{ secrets.EXTERNAL_EXCHANGES_APIKEY }}
+          export EXTERNAL_COINDESK_APIKEY=${{ secrets.EXTERNAL_COINDESK_APIKEY }}
+          export BOT_TOKEN=${{ secrets.BOT_TOKEN }}
+
+          docker compose up -d --build  # Build and run services in detached mode
+          echo "🚀 Your app is now running with Docker Compose!"          
+
+      - name: Verify services are running
+        run: |
+          cd cryptowave-server-repo
+          docker compose ps  # Check the status of all services
+          echo "🍏 The job's status is ${{ job.status }}."          
