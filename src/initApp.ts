@@ -9,6 +9,7 @@ import { config } from "dotenv";
 import { externalRouter } from "./features/external/external.router";
 import { transactionsRouter } from "./features/transactions/transactions.router";
 import { watchlistRouter } from "./features/watchlist/watchlist.router";
+import { originMiddleware } from "./common/middlewares/origin.middleware";
 
 export const initApp = () => {
   config();
@@ -24,6 +25,8 @@ export const initApp = () => {
       allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
     })
   );
+
+  app.use(originMiddleware);
 
   app.get("/", (req, res) => {
     res.status(200).json({ version: "1.1" });
