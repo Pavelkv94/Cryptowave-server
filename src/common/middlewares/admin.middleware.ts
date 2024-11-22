@@ -14,9 +14,7 @@ export const adminMiddleware = (req: Request, res: Response, next: NextFunction)
 
   const decodedAuth = fromBase64ToUTF8(auth.slice(6));
 
-  if (decodedAuth !== process.env.ADMIN || "") {
-    console.log("ADMIN environment variable:", process.env);
-
+  if (decodedAuth !== process.env.ADMIN || "admin:qwerty") {
     return next(ApiError.Unauthorized());
   }
 
