@@ -1,7 +1,4 @@
 import { UserInputModel } from "../../src/features/users/models/users.models";
-import { fromUTF8ToBase64 } from "../../src/utils/base64";
-
-export const codedAuth = fromUTF8ToBase64("admin:qwerty");
 
 export const newUser: UserInputModel = {
   email: "example@example.com",
