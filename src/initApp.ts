@@ -11,28 +11,28 @@ import { transactionsRouter } from "./features/transactions/transactions.router"
 import { watchlistRouter } from "./features/watchlist/watchlist.router";
 
 export const initApp = () => {
-    config();
+  config();
 
-    const app = express();
-    app.use(cookieParser());
-    app.use(express.json());
+  const app = express();
+  app.use(cookieParser());
+  app.use(express.json());
 
-    app.use(
-        cors({
-            credentials: true,
-            origin: process.env.CLIENT_URL,
-            allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
-        })
-    );
+  app.use(
+    cors({
+      credentials: true,
+      origin: process.env.CLIENT_URL,
+      allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
+    })
+  );
 
-    app.use("/auth", authRouter);
-    app.use("/users", usersRouter);
-    app.use("/delete", testingRouter);
-    app.use("/external", externalRouter);
-    app.use("/transactions", transactionsRouter);
-    app.use("/watchlist", watchlistRouter);
+  app.use("/auth", authRouter);
+  app.use("/users", usersRouter);
+  app.use("/delete", testingRouter);
+  app.use("/external", externalRouter);
+  app.use("/transactions", transactionsRouter);
+  app.use("/watchlist", watchlistRouter);
 
-    app.use(errorHandlerMiddleware);
+  app.use(errorHandlerMiddleware);
 
-    return app;
+  return app;
 };

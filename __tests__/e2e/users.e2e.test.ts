@@ -3,6 +3,8 @@ import { db } from "../../src/db/db";
 import { usersManager } from "../helpers/usersManager";
 import { usersService } from "../../src/features/users/users.service";
 import { createString, fakeId, newUser } from "../helpers/datasets";
+import { LoginInputModel } from "../../src/features/auth/models/auth.models";
+import { authManager } from "../helpers/authManager";
 
 describe("/users", () => {
   let mongoServer: MongoMemoryServer;
@@ -57,6 +59,16 @@ describe("/users", () => {
     expect(createUserResponse.body.email).toBe(newUser.email);
   });
 
+  it("should create user and return new user", async () => {
+    const originMethod = usersService.create;
+
+    usersService.create = jest.fn().mockRejectedValue(new Error("DB Error"));
+
+    const createUserResponse = await usersManager.createUser(newUser);
+    expect(createUserResponse.status).toBe(500);
+    usersService.create = originMethod;
+  });
+
   it("shouldn't create user with the same data", async () => {
     const createUserResponse2 = await usersManager.createUser(newUser);
     expect(createUserResponse2.status).toBe(201);
@@ -91,6 +103,19 @@ describe("/users", () => {
     expect(getUsersResponse2.body.length).toBe(0);
   });
 
+  it("should delete user 500", async () => {
+    const createUserResponse = await usersManager.createUser(newUser);
+    expect(createUserResponse.status).toBe(201);
+
+    const originMethod = usersService.deleteUser;
+
+    usersService.deleteUser = jest.fn().mockRejectedValue(new Error("DB Error"));
+
+    const deleteUserResponse = await usersManager.deleteUser(createUserResponse.body.id);
+    expect(deleteUserResponse.status).toBe(500);
+    usersService.deleteUser = originMethod;
+  });
+
   it("shouldn't delete user", async () => {
     const createUserResponse = await usersManager.createUser(newUser);
     expect(createUserResponse.status).toBe(201);
@@ -100,5 +125,55 @@ describe("/users", () => {
 
     const getUsersResponse2 = await usersManager.getUsersWithAuth();
     expect(getUsersResponse2.body.length).toBe(1);
+  });
+
+  it("should update avatar", async () => {
+    const createUserResponse = await usersManager.createUser(newUser);
+    expect(createUserResponse.status).toBe(201);
+
+    const loginData: LoginInputModel = {
+      email: newUser.email,
+      password: newUser.password,
+    };
+
+    const loginUserResponse = await authManager.loginUser(loginData);
+    expect(loginUserResponse.status).toBe(200);
+
+    const cookies = loginUserResponse.headers["set-cookie"];
+    expect(cookies).toBeDefined();
+
+    const refreshToken = cookies[0].split(" ")[0].split("=")[1];
+
+    const newAvatarUrl = "http://some.img";
+    const updateAvatarResponse = await usersManager.updateAvatar(newAvatarUrl, refreshToken);
+    expect(updateAvatarResponse.status).toBe(204);
+  });
+
+  it("shouldn't update avatar", async () => {
+    const createUserResponse = await usersManager.createUser(newUser);
+    expect(createUserResponse.status).toBe(201);
+
+    const loginData: LoginInputModel = {
+      email: newUser.email,
+      password: newUser.password,
+    };
+
+    const loginUserResponse = await authManager.loginUser(loginData);
+    expect(loginUserResponse.status).toBe(200);
+
+    const cookies = loginUserResponse.headers["set-cookie"];
+    expect(cookies).toBeDefined();
+
+    const refreshToken = cookies[0].split(" ")[0].split("=")[1];
+
+    const newAvatarUrl = "http://some.img";
+
+    const originMethod = usersService.updateAvatar;
+
+    usersService.updateAvatar = jest.fn().mockRejectedValue(new Error("DB Error"));
+
+    const updateAvatarResponse = await usersManager.updateAvatar(newAvatarUrl, refreshToken);
+    expect(updateAvatarResponse.status).toBe(500);
+    usersService.updateAvatar = originMethod;
   });
 });

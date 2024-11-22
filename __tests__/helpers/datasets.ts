@@ -1,5 +1,3 @@
-// import { BlogInputModel, BlogViewModel } from "../../src/features/blogs/models/blogs.models";
-// import { PostForBlogInputModel, PostInputModel } from "../../src/features/posts/models/posts.models";
 import { UserInputModel } from "../../src/features/users/models/users.models";
 import { fromUTF8ToBase64 } from "../../src/utils/base64";
 
@@ -18,39 +16,21 @@ export const createString = (length: number) => {
   return s;
 };
 
-// export const newBlog: BlogInputModel = {
-//   name: "n1",
-//   description: "d1",
-//   websiteUrl: "http://some.com",
-// };
+export const newTransaction = {
+  coin: "btc",
+  quantity: "12",
+  price_per_coin: "1000",
+  note: "note",
+  total: "2",
+  operation: "buy",
+  date: "12-02-2024",
+};
 
-// export const newBlogPost: PostForBlogInputModel = {
-//   title: "Post Title",
-//   shortDescription: "Post Desc",
-//   content: "Post Content",
-// };
+export const newWatchItem = {
+  symbol: "btc",
+  name: "test",
+  iconUrl: "test",
+  changing: "20",
+};
 
 export const fakeId: string = "66fe520519de2ba63a26d417";
-
-// export const buildPost = (blogFromDb: BlogViewModel): PostInputModel => ({
-//   title: "t1",
-//   shortDescription: "s1",
-//   content: "c1",
-//   blogId: blogFromDb.id,
-// });
-
-// export const newUser = {
-//   login: "Login123",
-//   password: "12345678",
-//   email: "example123@example.com",
-// };
-
-// export const newUser2 = {
-//   login: "user2",
-//   password: "123456782",
-//   email: "user2@example.com",
-// };
-
-// export const newComment = {
-//   content: "default comment with correct length",
-// };

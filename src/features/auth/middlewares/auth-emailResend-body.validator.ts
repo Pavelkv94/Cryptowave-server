@@ -1,6 +1,5 @@
 import { body } from "express-validator";
 import { ValidationMiddleware } from "../../../common/middlewares/validation.middleware";
-import { UserModel } from "../../../db/models/User.model";
 import { usersService } from "../../users/users.service";
 
 const userEmailInputValidator = body("email")

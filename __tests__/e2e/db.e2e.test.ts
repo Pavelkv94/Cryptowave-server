@@ -12,6 +12,11 @@ describe("DB", () => {
     await db.connect(url);
   });
 
+  afterAll(async () => {
+    await mongoServer.stop();
+    await db.disconnect();
+  });
+  
   it("should throw an error if connection fails", async () => {
     const errorMessage = "Connection failed";
     mongoose.connect = jest.fn().mockRejectedValueOnce(new Error(errorMessage));

@@ -56,34 +56,18 @@ export const authService = {
 
     return result.matchedCount > 0;
   },
-    async setNewConfirmCode(user_id: string): Promise<string> {
-      const newConfirmationCode = randomUUID();
-      const newExpirationDate = getExpirationDate(30);
-      const result = await UserModel.updateOne(
-        { _id: user_id },
-        { $set: { "emailConfirmation.confirmationCode": newConfirmationCode, "emailConfirmation.expirationDate": newExpirationDate } }
-      );
-      const isUpdatedUserConfirmation = result.matchedCount > 0;
+  async setNewConfirmCode(user_id: string): Promise<string> {
+    const newConfirmationCode = randomUUID();
+    const newExpirationDate = getExpirationDate(30);
+    const result = await UserModel.updateOne(
+      { _id: user_id },
+      { $set: { "emailConfirmation.confirmationCode": newConfirmationCode, "emailConfirmation.expirationDate": newExpirationDate } }
+    );
+    const isUpdatedUserConfirmation = result.matchedCount > 0;
 
-      if (!isUpdatedUserConfirmation) {
-        throw new Error("Update User confirmation Failed");
-      }
-      return newConfirmationCode;
-    },
-  //   async setNewRecoveryCode(user_id: string): Promise<string> {
-  //     const newRecoveryCode = randomUUID();
-  //     const newExpirationDate = getExpirationDate(30);
-
-  //     const isUpdatedUserRecovery = await usersRepository.setRecoveryCode(user_id, newRecoveryCode, newExpirationDate);
-
-  //     if (!isUpdatedUserRecovery) {
-  //       throw new Error("Update User recovery Failed");
-  //     }
-  //     return newRecoveryCode;
-  //   },
-  //   async checkSessionVersion(payload: JWTPayloadModel) {
-  //     const isSessionExists = await securityDevicesRepository.checkSession(payload);
-
-  //     return isSessionExists;
-  //   },
+    if (!isUpdatedUserConfirmation) {
+      throw new Error("Update User confirmation Failed");
+    }
+    return newConfirmationCode;
+  },
 };
