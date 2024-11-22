@@ -68,14 +68,19 @@ describe("/test", () => {
 
   it("User should login", async () => {
     const createUserResponse = await usersManager.createUser(newUser);
+    console.log("Create User Response:", createUserResponse.body); // Логируем ответ
+
     expect(createUserResponse.status).toBe(201);
 
+    
     const loginData: LoginInputModel = {
       email: newUser.email,
       password: newUser.password,
     };
 
     const loginUserResponse = await authManager.loginUser(loginData);
+    console.log("login User Response:", loginUserResponse.body); // Логируем ответ
+
     expect(loginUserResponse.status).toBe(200);
     expect(loginUserResponse.body).toHaveProperty("accessToken");
 
