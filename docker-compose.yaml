@@ -21,7 +21,8 @@ services:
       EXTERNAL_EXCHANGES_APIKEY: $EXTERNAL_EXCHANGES_APIKEY
       EXTERNAL_COINDESK_APIKEY: $EXTERNAL_COINDESK_APIKEY
       BOT_TOKEN: $BOT_TOKEN
-
+    ports:
+      - 5002:5002
 networks:
   mongo_mongo-network:
     external: true
