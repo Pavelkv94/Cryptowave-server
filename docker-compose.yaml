@@ -2,7 +2,7 @@ services:
   cryptowave-server:
     container_name: cryptowave-server
     networks:
-      - x_network
+      - mongo_mongo-network
     build:
       context: .
     environment:
@@ -23,5 +23,5 @@ services:
       BOT_TOKEN: $BOT_TOKEN
 
 networks:
-  x_network:
+  mongo_mongo-network:
     external: true
