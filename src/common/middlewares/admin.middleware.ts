@@ -14,9 +14,9 @@ export const adminMiddleware = (req: Request, res: Response, next: NextFunction)
 
   const decodedAuth = fromBase64ToUTF8(auth.slice(6));
 
-  if (decodedAuth !== process.env.ADMIN || "") {
+  if (decodedAuth !== "admin:qwerty") {
     console.log("===========ERROR PLACE ===============")
-    console.log(auth)
+    console.log(decodedAuth)
 
     return next(ApiError.Unauthorized());
     
