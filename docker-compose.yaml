@@ -2,7 +2,7 @@ services:
   cryptowave-server:
     container_name: cryptowave-server
     networks:
-      - mongo_mongo-network
+      - cryptowave-network
     build:
       context: .
     environment:
@@ -22,8 +22,27 @@ services:
       EXTERNAL_COINDESK_APIKEY: $EXTERNAL_COINDESK_APIKEY
       BOT_TOKEN: $BOT_TOKEN
     ports:
-      - 5002:5002
+      - 5002:5000
+    depends_on:
+      - cryptowave-mongodb
     restart: unless-stopped
+
+  cryptowave-mongodb:
+    image: mongo:latest
+    container_name: cryptowave-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - cryptowave-mongodb-data:/data/db
+    networks:
+      - cryptowave-network
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: $MONGO_USERNAME
+      MONGO_INITDB_ROOT_PASSWORD: $MONGO_PASSWORD
+    restart: unless-stopped
+
+volumes:
+  cryptowave-mongodb-data:
+  
 networks:
-  mongo_mongo-network:
-    external: true
+  cryptowave-network:
