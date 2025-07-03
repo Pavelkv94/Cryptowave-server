@@ -31,7 +31,7 @@ services:
     image: mongo:latest
     container_name: cryptowave-mongodb
     ports:
-      - "27017:27017"
+      - "27019:27017"
     volumes:
       - cryptowave-mongodb-data:/data/db
     networks:
