@@ -1,6 +1,8 @@
 services:
   cryptowave-server:
     container_name: cryptowave-server
+    mem_limit: 2g
+    cpus: 2.0
     networks:
       - cryptowave-network
     build:
@@ -30,6 +32,8 @@ services:
   cryptowave-mongodb:
     image: mongo:latest
     container_name: cryptowave-mongodb
+    mem_limit: 2g
+    cpus: 2.0
     ports:
       - "27019:27017"
     volumes:
